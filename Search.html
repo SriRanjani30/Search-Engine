@@ -11,6 +11,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            flex-direction: column;
             height: 100vh;
             margin: 0;
             overflow: hidden;
@@ -37,6 +38,17 @@
         }
         .theme-switcher button:hover {
             background-color: #ddd;
+        }
+        .date-time {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 16px;
+            color: #333;
+            background: #fff;
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
         .search-container {
             text-align: center;
@@ -127,9 +139,29 @@
             bottom: 20%;
             left: 25%;
         }
+        .engine-selector {
+            margin-bottom: 15px;
+            font-size: 16px;
+            color: #333;
+        }
+        .engine-selector label {
+            margin-right: 10px;
+            font-weight: bold;
+        }
+        .engine-selector select {
+            padding: 8px 10px;
+            border-radius: 5px;
+            border: 2px solid #f39c12;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+        .engine-selector select:focus {
+            border-color: #ff6347;
+        }
     </style>
 </head>
 <body>
+    <div class="date-time" id="dateTime"></div>
     <div class="theme-switcher">
         <button onclick="changeTheme('default')">Default</button>
         <button onclick="changeTheme('dark')">Dark</button>
@@ -137,25 +169,42 @@
     </div>
     <div class="search-container">
         <h1>Search the Web</h1>
-        <form action="https://www.google.com/search" method="get">
+        <form id="searchForm" method="get">
+            <div class="engine-selector">
+                <label for="searchEngine">Search Engine:</label>
+                <select id="searchEngine" name="engine">
+                    <option value="https://www.google.com/search">Google</option>
+                    <option value="https://www.bing.com/search">Bing</option>
+                    <option value="https://www.ecosia.org/search">Ecosia</option>
+                    <option value="https://duckduckgo.com/">DuckDuckGo</option>
+                    <option value="https://swisscows.com/web">Swisscows</option>
+                </select>
+            </div>
             <input type="text" name="q" class="search-box" placeholder="What are you looking for?" required>
             <br>
             <button type="submit" class="search-button">Go!</button>
         </form>
-        <p>Powered by <a href="https://www.google.com" target="_blank">Google</a></p>
+        <p>Powered by <span id="poweredBy">Google</span></p>
         <div class="decorative-circles">
             <div class="circle"></div>
             <div class="circle"></div>
             <div class="circle"></div>
         </div>
     </div>
-
     <script>
+        function updateDateTime() {
+            const now = new Date();
+            const dateTime = now.toLocaleString([], { dateStyle: 'medium', timeStyle: 'short' });
+            document.getElementById('dateTime').textContent = dateTime;
+        }
+        setInterval(updateDateTime, 1000);
+        updateDateTime();
+
         function changeTheme(theme) {
             const body = document.body;
             const container = document.querySelector('.search-container');
             const circles = document.querySelectorAll('.circle');
-            
+
             if (theme === 'dark') {
                 body.style.backgroundColor = '#2c3e50';
                 container.style.backgroundColor = '#34495e';
@@ -173,6 +222,19 @@
                 circles.forEach(circle => circle.style.backgroundColor = 'rgba(255, 195, 113, 0.3)');
             }
         }
+        const searchForm = document.getElementById('searchForm');
+        const searchEngineSelector = document.getElementById('searchEngine');
+        const poweredBy = document.getElementById('poweredBy');
+
+        searchForm.addEventListener('submit', function (e) {
+            const selectedEngine = searchEngineSelector.value;
+            searchForm.action = selectedEngine;
+        });
+        searchEngineSelector.addEventListener('change', function () {
+            const selectedOption = searchEngineSelector.options[searchEngineSelector.selectedIndex];
+            poweredBy.textContent = selectedOption.text;
+        });
     </script>
 </body>
+
 </html>
