@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Search</title>
+    <title>Themed Search</title>
     <style>
         body {
             font-family: 'Comic Sans MS', cursive, sans-serif;
@@ -14,6 +14,29 @@
             height: 100vh;
             margin: 0;
             overflow: hidden;
+            transition: background-color 0.3s;
+        }
+        .theme-switcher {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: #fff;
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        .theme-switcher button {
+            margin: 0 5px;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        .theme-switcher button:hover {
+            background-color: #ddd;
         }
         .search-container {
             text-align: center;
@@ -25,6 +48,7 @@
             max-width: 500px;
             width: 100%;
             position: relative;
+            transition: background-color 0.3s, border-color 0.3s;
         }
         h1 {
             margin-bottom: 20px;
@@ -106,6 +130,11 @@
     </style>
 </head>
 <body>
+    <div class="theme-switcher">
+        <button onclick="changeTheme('default')">Default</button>
+        <button onclick="changeTheme('dark')">Dark</button>
+        <button onclick="changeTheme('pastel')">Pastel</button>
+    </div>
     <div class="search-container">
         <h1>Search the Web</h1>
         <form action="https://www.google.com/search" method="get">
@@ -120,5 +149,30 @@
             <div class="circle"></div>
         </div>
     </div>
+
+    <script>
+        function changeTheme(theme) {
+            const body = document.body;
+            const container = document.querySelector('.search-container');
+            const circles = document.querySelectorAll('.circle');
+            
+            if (theme === 'dark') {
+                body.style.backgroundColor = '#2c3e50';
+                container.style.backgroundColor = '#34495e';
+                container.style.borderColor = '#e74c3c';
+                circles.forEach(circle => circle.style.backgroundColor = 'rgba(231, 76, 60, 0.3)');
+            } else if (theme === 'pastel') {
+                body.style.backgroundColor = '#fceef3';
+                container.style.backgroundColor = '#fffbf3';
+                container.style.borderColor = '#ffb6c1';
+                circles.forEach(circle => circle.style.backgroundColor = 'rgba(255, 182, 193, 0.3)');
+            } else {
+                body.style.backgroundColor = '#fffae5';
+                container.style.backgroundColor = '#fff';
+                container.style.borderColor = '#f39c12';
+                circles.forEach(circle => circle.style.backgroundColor = 'rgba(255, 195, 113, 0.3)');
+            }
+        }
+    </script>
 </body>
 </html>
