@@ -3,61 +3,122 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Google Search</title>
+    <title>Student Search</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            background-color: #fffae5;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
             margin: 0;
+            overflow: hidden;
         }
         .search-container {
             text-align: center;
             background: #fff;
-            padding: 30px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            border-radius: 10px;
+            padding: 25px 20px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            border-radius: 15px;
+            border: 3px dashed #f39c12;
+            max-width: 500px;
+            width: 100%;
+            position: relative;
         }
         h1 {
             margin-bottom: 20px;
-            font-size: 24px;
+            font-size: 26px;
             color: #333;
         }
         .search-box {
-            width: 100%;
-            max-width: 400px;
-            padding: 10px;
-            margin-bottom: 20px;
-            border: 2px solid #ddd;
-            border-radius: 5px;
-            font-size: 18px;
+            width: 90%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 2px solid #f39c12;
+            border-radius: 10px;
+            font-size: 16px;
+            outline: none;
+            transition: all 0.3s;
+        }
+        .search-box:focus {
+            border-color: #ff6347;
         }
         .search-button {
-            padding: 10px 20px;
-            font-size: 18px;
+            padding: 12px 25px;
+            font-size: 16px;
             color: #fff;
-            background-color: #4285f4;
+            background-color: #3498db;
             border: none;
-            border-radius: 5px;
+            border-radius: 10px;
             cursor: pointer;
-            transition: background-color 0.3s;
+            transition: background-color 0.3s, transform 0.2s;
         }
         .search-button:hover {
-            background-color: #357ae8;
+            background-color: #2980b9;
+            transform: scale(1.05);
+        }
+        .search-button:active {
+            background-color: #1f78a3;
+            transform: scale(0.95);
+        }
+        .search-container p {
+            margin-top: 15px;
+            font-size: 14px;
+            color: #666;
+        }
+        .search-container p a {
+            color: #f39c12;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .search-container p a:hover {
+            text-decoration: underline;
+        }
+        .decorative-circles {
+            position: absolute;
+            top: -20px;
+            left: -20px;
+            right: -20px;
+            bottom: -20px;
+            pointer-events: none;
+            z-index: -1;
+        }
+        .circle {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background-color: rgba(255, 195, 113, 0.3);
+            position: absolute;
+        }
+        .circle:nth-child(1) {
+            top: 20%;
+            left: 10%;
+        }
+        .circle:nth-child(2) {
+            top: 50%;
+            right: 15%;
+        }
+        .circle:nth-child(3) {
+            bottom: 20%;
+            left: 25%;
         }
     </style>
 </head>
 <body>
     <div class="search-container">
-        <h1>Google Search</h1>
+        <h1>Search the Web</h1>
         <form action="https://www.google.com/search" method="get">
-            <input type="text" name="q" class="search-box" placeholder="Enter your search query..." required>
+            <input type="text" name="q" class="search-box" placeholder="What are you looking for?" required>
             <br>
-            <button type="submit" class="search-button">Search</button>
+            <button type="submit" class="search-button">Go!</button>
         </form>
+        <p>Powered by <a href="https://www.google.com" target="_blank">Google</a></p>
+        <div class="decorative-circles">
+            <div class="circle"></div>
+            <div class="circle"></div>
+            <div class="circle"></div>
+        </div>
     </div>
 </body>
 </html>
